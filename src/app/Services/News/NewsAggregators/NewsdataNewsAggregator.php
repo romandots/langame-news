@@ -7,7 +7,7 @@ use App\Services\News\Contracts\NewsAggregatorInterface;
 use App\Services\News\Exceptions\NewsServiceConfigException;
 use App\Services\News\Exceptions\NewsServiceConnectionException;
 use App\Services\News\Exceptions\NewsServiceException;
-use Illuminate\Http\Client\Factory as Http;
+use Illuminate\Http\Client\PendingRequest as Http;
 use Psr\Log\LoggerInterface;
 
 class NewsdataNewsAggregator implements NewsAggregatorInterface
