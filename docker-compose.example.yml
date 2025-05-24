@@ -9,6 +9,13 @@ services:
     depends_on:
       - db
       - rabbitmq
+    environment:
+      DB_HOST: db
+      DB_DATABASE: langame
+      DB_USERNAME: langame
+      DB_PASSWORD: changemetoo
+      NEWSDATA_URL: https://newsdata.io/api/1/latest?q=moscow&apikey=
+      NEWSDATA_ENABLED: true
 
   nginx:
     image: nginx:latest
