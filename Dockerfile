@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     git
 
-RUN docker-php-ext-install pdo_mysql mbstring pcntl \
+RUN docker-php-ext-install pdo_mysql mbstring pcntl sockets \
     && pecl install amqp xdebug \
     && docker-php-ext-enable amqp xdebug
 

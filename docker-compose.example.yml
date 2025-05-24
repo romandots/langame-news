@@ -16,6 +16,8 @@ services:
       DB_PASSWORD: changemetoo
       NEWSDATA_URL: https://newsdata.io/api/1/latest?q=moscow&apikey=
       NEWSDATA_ENABLED: true
+      TELEGRAM_BOT_TOKEN: your-telegram-bot-token
+      TELEGRAM_CHAT_ID: your-telegram-chat-id
 
   nginx:
     image: nginx:latest
