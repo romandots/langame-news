@@ -19,7 +19,7 @@ class RegistrationConfirmationCodeNotification extends Notification implements S
     /**
      * Create a new notification instance.
      */
-    public function __construct(public readonly int $code)
+    public function __construct(public readonly string $code)
     {
         $this->chatId = config('services.telegram-bot-api.chat_id');
     }

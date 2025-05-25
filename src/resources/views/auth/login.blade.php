@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
+    <div class="flex items-center justify-center bg-gray-100 dark:bg-gray-900 transition-colors">
         <div class="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded shadow">
             <h2 class="text-2xl font-bold text-center text-gray-800">Вход в аккаунт</h2>
             @if ($errors->any())
