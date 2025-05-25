@@ -2,8 +2,10 @@
 
 namespace App\Services\News;
 
-use App\Services\News\Contracts\NewsAggregatorInterface;
+use App\DTO\NewsResponse;
+use App\DTO\SearchNews;
 use App\Repositories\NewsRepository;
+use App\Services\News\Contracts\NewsAggregatorInterface;
 use Psr\Log\LoggerInterface;
 
 readonly class NewsService
@@ -51,5 +53,33 @@ readonly class NewsService
     private function getLastPublishedDateForSource(string $source): \DateTime
     {
         return $this->newsRepository->getLastPublishedDateForSource($source) ?? new \DateTime('now -1 month');
+    }
+
+    public function search(SearchNews $searchNews): NewsResponse
+    {
+        $itemsPerPage = (int)config('news.search.items_per_page', 10);
+        ['items' => $items, 'total' => $total] = $this->newsRepository->search(
+            $searchNews->search,
+            $searchNews->page,
+            $itemsPerPage
+        );
+        $items->transform(function ($news) {
+            return $news->toArray() + [
+                    'html' => view('news.entry', ['news' => $news])->render(),
+                ];
+        });
+
+        $this->logger->info('News search performed', [
+            'search_term' => $searchNews->search,
+            'page' => $searchNews->page,
+            'items_per_page' => $itemsPerPage,
+            'results_count' => $total,
+        ]);
+
+        return new NewsResponse(
+            data: $items->toArray(),
+            last_page: (int)ceil($total / $itemsPerPage),
+            current_page: $searchNews->page,
+        );
     }
 }

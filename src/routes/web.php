@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Middlewares\EnsureUserIsConfirmed;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::middleware(EnsureUserIsConfirmed::class)->group(function () {
-        Route::get('/', function () {
-            return view('welcome');
-        })->name('home');
+        Route::get('/', [NewsController::class, 'index'])->name('home');
+        Route::get('/fetch', [NewsController::class, 'fetch'])->name('news.fetch');
     });
 });

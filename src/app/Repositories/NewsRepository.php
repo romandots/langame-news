@@ -27,4 +27,33 @@ class NewsRepository
             ->first()
             ?->published_at;
     }
+
+    /**
+     * @param string|null $search
+     * @param int $page
+     * @param int $itemsPerPage
+     * @return array{items: \Illuminate\Database\Eloquent\Collection, total: int}
+     */
+    public function search(?string $search, int $page, int $itemsPerPage): array
+    {
+        $query = NewsModel::query()->when($search, function ($query, $search) {
+            return $query->whereRaw(
+                "MATCH(title, summary, description) AGAINST (? IN BOOLEAN MODE)",
+                [$search]
+            );
+        });
+
+        $total = $query->count();
+        $lastPage = (int)ceil($total / $itemsPerPage);
+        $currentPage = min($page, $lastPage);
+        $items = $query->orderBy('published_at', 'desc')
+            ->skip(($currentPage - 1) * $itemsPerPage)
+            ->take($itemsPerPage)
+            ->get();
+
+        return [
+            'items' => $items,
+            'total' => $total,
+        ];
+    }
 }

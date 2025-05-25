@@ -37,4 +37,17 @@ class News extends Model
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'summary' => $this->summary,
+            'description' => $this->description,
+            'url' => $this->url,
+            'source' => $this->source,
+            'published_at' => $this->published_at->toDateTimeLocalString(),
+        ];
+    }
 }

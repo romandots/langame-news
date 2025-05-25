@@ -8,4 +8,7 @@ return [
             'enabled' => env('NEWSDATA_ENABLED', false),
         ],
     ],
+    'search' => [
+        'items_per_page' => 10,
+    ],
 ];
