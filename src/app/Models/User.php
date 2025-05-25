@@ -20,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Database\Factories\NewsFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User confirmed()
  */
 class User extends Authenticatable
 {
@@ -72,5 +73,10 @@ class User extends Authenticatable
             'created_at' => $this->created_at?->format('d.m.Y H:i'),
             'updated_at' => $this->updated_at?->format('d.m.Y H:i'),
         ];
+    }
+
+    public function scopeConfirmed($query)
+    {
+        return $query->where('is_confirmed', true);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Services\Users;
 
 use App\DTO\ConfirmationCode;
 use App\DTO\User as UserDto;
+use App\Events\UserConfirmedEvent;
+use App\Events\UserRegisteredEvent;
 use App\Models\User;
 use App\Notifications\RegistrationConfirmationCodeNotification;
 use App\Repositories\UserRepository;
@@ -33,6 +35,7 @@ readonly class UserRegistrationService
         DB::beginTransaction();
         try {
             $user = $this->createUser($userDto);
+            event(new UserRegisteredEvent($user));
             $this->sendNewConfirmationCode($user);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -101,6 +104,8 @@ readonly class UserRegistrationService
             )
         );
         $this->logger->debug('Confirmation code is correct. User registration complete.', ['user_id' => $user->id, 'code' => $code]);
+
+        event(new UserConfirmedEvent($user));
 
         return $user;
     }

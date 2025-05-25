@@ -4,6 +4,7 @@ namespace App\Services\News;
 
 use App\DTO\CollectionResponse;
 use App\DTO\SearchNews;
+use App\Events\NewsAddedEvent;
 use App\Repositories\NewsRepository;
 use App\Services\News\Contracts\NewsAggregatorInterface;
 use Psr\Log\LoggerInterface;
@@ -33,8 +34,9 @@ readonly class NewsService
         $counter = 0;
         foreach ($news as $item) {
             try {
-                $this->newsRepository->create($item);
+                $record = $this->newsRepository->create($item);
                 $counter++;
+                event(new NewsAddedEvent($record));
             } catch (\Exception $e) {
                 $this->logger->error('Failed to save news item', [
                     'source' => $item->source,

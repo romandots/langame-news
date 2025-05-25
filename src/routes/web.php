@@ -4,8 +4,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SseController;
 use App\Http\Middlewares\EnsureUserIsConfirmed;
 use Illuminate\Support\Facades\Route;
+
 
 
 Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])
@@ -35,5 +37,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/users/fetch', [UserController::class, 'fetch'])->name('users.fetch');
+
+        Route::get('/sse', [SseController::class, 'stream'])->name('sse');
     });
 });

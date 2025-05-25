@@ -61,4 +61,9 @@ class UserRepository
             'total' => $total,
         ];
     }
+
+    public function getAllConfirmedUsers(): Collection
+    {
+        return UserModel::confirmed()->get();
+    }
 }

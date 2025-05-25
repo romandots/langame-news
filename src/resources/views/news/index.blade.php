@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <script>
+    <script defer>
         function newsPage() {
             return {
                 news: [],
