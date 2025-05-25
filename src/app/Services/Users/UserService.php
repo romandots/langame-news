@@ -18,13 +18,6 @@ class UserService
     public function fetch(FetchUsers $fetchUsers): CollectionResponse
     {
         ['items' => $items, 'total' => $total] = $this->userRepository->search($fetchUsers->page, $fetchUsers->perPage);
-
-        $items->transform(function ($item) {
-            return $item->toArray() + [
-                    'html' => view('users.entry', ['user' => $item])->render(),
-                ];
-        });
-
         $this->logger->debug('Users fetch performed', [
             'page' => $fetchUsers->page,
             'items_per_page' => $fetchUsers->perPage,
