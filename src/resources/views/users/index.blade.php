@@ -18,12 +18,12 @@
             <table class="min-w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
                 <thead>
                 <tr>
-                    <th class="px-4 py-2">ID</th>
-                    <th class="px-4 py-2">Имя</th>
-                    <th class="px-4 py-2">Email</th>
-                    <th class="px-4 py-2">Подтверждён</th>
-                    <th class="px-4 py-2">Код подтверждения</th>
-                    <th class="px-4 py-2">Создан</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">ID</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">Имя</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">Email</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">Подтверждён</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">Код подтверждения</th>
+                    <th class="px-4 py-2 text-gray-900 dark:text-gray-100">Создан</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,7 +45,7 @@
             <template x-for="n in pages" :key="n">
                 <button
                     class="px-3 py-1 border rounded bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100"
-                    :class="{'bg-gray-200 dark:bg-gray-800': page === n}"
+                    :class="{'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100': page === n}"
                     @click="fetchUsers(n)"
                     x-text="n"
                     :disabled="page === n"
