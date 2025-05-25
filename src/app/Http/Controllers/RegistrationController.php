@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ConfirmUserRequest;
 use App\Http\Requests\StoreUserRequest;
-use App\Services\Users\Exceptions\UserRegistrationRedirectWithErrorException;
+use App\Services\Users\Exceptions\UserRegistrationException;
 use App\Services\Users\UserRegistrationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -50,6 +50,22 @@ class RegistrationController extends Controller
         return view('auth.confirm');
     }
 
+    public function resendConfirmationCode(UserRegistrationService $service)
+    {
+        $user = Auth::user();
+        if ($user && $user->is_confirmed) {
+            return redirect()->route('home');
+        }
+
+        try {
+            $service->sendNewConfirmationCode($user);
+            return redirect()->route('register.confirm')->withMessage('Код подтверждения отправлен.');
+        } catch (UserRegistrationException $exception) {
+            return redirect()->route('register.confirm')->withErrors(['code' => $exception->getMessage()]);
+        }
+
+    }
+
     public function submitConfirmation(UserRegistrationService $service, ConfirmUserRequest $request): RedirectResponse
     {
         $user = Auth::user();
@@ -58,12 +74,9 @@ class RegistrationController extends Controller
         }
 
         try {
-            $service->confirmUser($request->getCode());
+            $service->confirmUser($user, $request->getCode());
             return redirect()->route('home');
-        } catch (UserRegistrationRedirectWithErrorException $exception) {
-            if ($exception->redirectRoute) {
-                return redirect()->route($exception->redirectRoute)->withErrors(['error' => $exception->getMessage()]);
-            }
+        } catch (UserRegistrationException $exception) {
             return redirect()->back()->withErrors(['code' => $exception->getMessage()]);
         }
     }

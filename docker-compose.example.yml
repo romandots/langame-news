@@ -15,9 +15,12 @@ services:
       DB_USERNAME: langame
       DB_PASSWORD: changemetoo
       NEWSDATA_URL: https://newsdata.io/api/1/latest?q=moscow&apikey=
-      NEWSDATA_ENABLED: true
       TELEGRAM_BOT_TOKEN: your-telegram-bot-token
       TELEGRAM_CHAT_ID: your-telegram-chat-id
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
 
   nginx:
     image: nginx:latest

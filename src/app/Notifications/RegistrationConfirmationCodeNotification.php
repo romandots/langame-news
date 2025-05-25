@@ -45,7 +45,7 @@ class RegistrationConfirmationCodeNotification extends Notification implements S
     {
         return TelegramMessage::create()
             ->to($this->chatId)
-            ->content("Добро пожаловать, {$notifiable->name}!")
+            ->line("Добро пожаловать, {$notifiable->name}!")
             ->line("Для завершения регистрации введите код подтверждения: {$this->code}");
     }
 
