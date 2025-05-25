@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchNewsRequest;
 use App\Services\News\NewsService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('news.index');
     }

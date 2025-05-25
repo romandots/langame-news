@@ -2,7 +2,7 @@
 
 namespace App\Services\News;
 
-use App\DTO\NewsResponse;
+use App\DTO\CollectionResponse;
 use App\DTO\SearchNews;
 use App\Repositories\NewsRepository;
 use App\Services\News\Contracts\NewsAggregatorInterface;
@@ -55,7 +55,7 @@ readonly class NewsService
         return $this->newsRepository->getLastPublishedDateForSource($source) ?? new \DateTime('now -1 month');
     }
 
-    public function search(SearchNews $searchNews): NewsResponse
+    public function search(SearchNews $searchNews): CollectionResponse
     {
         $itemsPerPage = (int)config('news.search.items_per_page', 10);
         ['items' => $items, 'total' => $total] = $this->newsRepository->search(
@@ -69,14 +69,14 @@ readonly class NewsService
                 ];
         });
 
-        $this->logger->info('News search performed', [
+        $this->logger->debug('News search performed', [
             'search_term' => $searchNews->search,
             'page' => $searchNews->page,
             'items_per_page' => $itemsPerPage,
             'results_count' => $total,
         ]);
 
-        return new NewsResponse(
+        return new CollectionResponse(
             data: $items->toArray(),
             last_page: (int)ceil($total / $itemsPerPage),
             current_page: $searchNews->page,

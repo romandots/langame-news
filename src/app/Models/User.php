@@ -60,4 +60,17 @@ class User extends Authenticatable
             'is_confirmed' => 'boolean',
         ];
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'is_confirmed' => $this->is_confirmed,
+            'confirmation_code' => $this->confirmation_code,
+            'created_at' => $this->created_at?->format('d.m.Y H:i'),
+            'updated_at' => $this->updated_at?->format('d.m.Y H:i'),
+        ];
+    }
 }

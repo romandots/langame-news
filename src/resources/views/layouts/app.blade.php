@@ -22,10 +22,18 @@
     <nav class="flex items-center justify-end gap-4">
         @auth
             <a
-                href="{{ url('/') }}"
-                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                href="{{ route('home') }}"
+                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal
+                    {{ Route::currentRouteName() === 'home' ? 'bg-gray-200 dark:bg-gray-800 font-semibold' : '' }}"
             >
                 Новости
+            </a>
+            <a
+                href="{{ route('users') }}"
+                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal
+                    {{ Route::currentRouteName() === 'users' ? 'bg-gray-200 dark:bg-gray-800 font-semibold' : '' }}"
+            >
+                Пользователи
             </a>
             <a
                 href="{{ route('logout') }}"

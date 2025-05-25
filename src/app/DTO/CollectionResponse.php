@@ -4,7 +4,7 @@ namespace App\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-readonly class NewsResponse
+readonly class CollectionResponse
 {
     public function __construct(
         public array $data,

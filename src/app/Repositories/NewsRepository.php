@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\DTO\News;
 use App\Models\News as NewsModel;
+use Illuminate\Database\Eloquent\Collection;
 
 class NewsRepository
 {
@@ -32,7 +33,7 @@ class NewsRepository
      * @param string|null $search
      * @param int $page
      * @param int $itemsPerPage
-     * @return array{items: \Illuminate\Database\Eloquent\Collection, total: int}
+     * @return array{items: Collection, total: int}
      */
     public function search(?string $search, int $page, int $itemsPerPage): array
     {
