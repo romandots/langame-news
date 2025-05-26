@@ -59,10 +59,6 @@ class UnNewsRssAggregator extends RssAggregator implements NewsAggregatorInterfa
                 continue;
             }
 
-            $dto = $this->mapToNewsDto($item);
-            if ($dto->published_at > $offset) {
-                $news[] = $dto;
-            }
             $publishedAt = $item->get_date('Y-m-d H:i:s');
             if (strtotime($publishedAt) <= $offset->getTimestamp()) {
                 continue; // Skip items older than the offset
