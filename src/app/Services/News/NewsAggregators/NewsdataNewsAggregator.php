@@ -49,7 +49,7 @@ class NewsdataNewsAggregator implements NewsAggregatorInterface
             } catch (\Exception $e) {
                 $this->logger->error('Invalid item format from Newsdata.io', [
                     'raw' => $item,
-                    'exception' => $e,
+                    'error_message' => $e->getMessage(),
                 ]);
                 continue;
             }
