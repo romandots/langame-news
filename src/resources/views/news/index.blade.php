@@ -57,7 +57,7 @@
                     fetch(`{{ route('news.fetch') }}?page=${page}&search=${encodeURIComponent(this.search)}`)
                         .then(r => r.json())
                         .then(data => {
-                            // this.news = data.data;
+                            this.news = data.data;
                             this.pages = data.last_page;
                             this.page = data.current_page;
                         })
